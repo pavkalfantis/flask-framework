@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect
-
 import os
 import requests
 from datetime import date,timedelta
@@ -10,7 +9,7 @@ import pandas as pd
 from bokeh.plotting import figure
 from bokeh.embed import components
 from bokeh.util.string import encode_utf8
-
+'''
 app = Flask(__name__)
 
 @app.route('/')
@@ -23,7 +22,7 @@ def about():
 
 if __name__ == '__main__':
   app.run(port=33507)
-
+'''
 #start_date='2017-01-01'
 #end_date='2017-12-31'
 url='https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?'
