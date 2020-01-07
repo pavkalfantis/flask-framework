@@ -6,7 +6,7 @@ from requests.auth import HTTPBasicAuth
 import simplejson as json
 import pandas as pd
 
-from bokeh.plotting import figure
+from bokeh.plotting import figure,show
 from bokeh.embed import components
 from bokeh.util.string import encode_utf8
 '''
@@ -23,22 +23,33 @@ def about():
 if __name__ == '__main__':
   app.run(port=33507)
 '''
+ticker = 'GOOGL'
 #start_date='2017-01-01'
 #end_date='2017-12-31'
 url='https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?'
-ticker = 'GOOGL'
 my_api_key='Qj1qW5k3GsuLbUpvpsfZ'
-payload = {'ticker':ticker,'api_key':my_api_key}#, date.gte='20170101',date.lt='20171231'}
+params = {'ticker':ticker,'api_key':my_api_key, 'qopts.columns':'date,close'}#, date.gte='20170101',date.lt='20171231'}
+quandl_data = requests.get(url,params=params)
 
-
-quandl_data = requests.get(url,params=payload)
-stock_load = json.loads(quandl_data.content)
-df = pd.DataFrame(stock_load['datatable']['data'])
+data_load = json.loads(quandl_data.content)
+df = pd.DataFrame(data_load['datatable']['data'])
 columns = []
-temp = stock_load['datatable']['columns']
+temp = data_load['datatable']['columns']
 for item in temp:
     columns.append(item['name'])
 df.columns=columns
 df.date = pd.to_datetime(df.date)
 #df=df[(df.date > start_date) & (df.date <= end_date)]
 print(df)
+
+
+
+'''
+p = figure(x_axis_type="datetime", title="Stock Closing Prices")
+p.grid.grid_line_alpha=0.3
+p.xaxis.axis_label = 'Date'
+p.yaxis.axis_label = 'Price'
+p.line(df.date, df.close, legend=ticker) #color='#A6CEE3')
+p.legend.location = "top_left"
+show (p)
+'''
