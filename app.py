@@ -11,24 +11,24 @@ from bokeh.embed import components
 from bokeh.util.string import encode_utf8
 
 app = Flask(__name__)
-'''
+
 @app.route('/')
 def index():
-  return render_template('index.html')
-'''
+  return render_template('request.html')
+
 @app.route('/about')
 def about():
   return render_template('about.html')
 
 
 @app.route('/index',methods=['GET','POST'])
-def index():
+def index2():
     if request.method=='GET':
         return render_template('request.html')
     else:
         ticker=request.form['ticker_symbol']
 
-    start_date='2017-01-01'
+    start_date='2017-12-01'
     end_date='2017-12-31'
     url='https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?'
     my_api_key='Qj1qW5k3GsuLbUpvpsfZ'
@@ -45,7 +45,7 @@ def index():
     df=df[(df.date > start_date) & (df.date <= end_date)]
 
 #Create the Bokeh Plot
-    p = figure(x_axis_type="datetime", title="Stock Closing Prices")
+    p = figure(x_axis_type="datetime", title="Daily Stock Closing Prices for December 2017")
     p.grid.grid_line_alpha=0.3
     p.xaxis.axis_label = 'Date'
     p.yaxis.axis_label = 'Price'
