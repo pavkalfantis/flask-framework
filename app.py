@@ -28,7 +28,7 @@ def index2():
     else:
         ticker=request.form['ticker_symbol']
 
-    start_date='2017-12-01'
+    start_date='2017-01-01'
     end_date='2017-12-31'
     url='https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?'
     my_api_key='Qj1qW5k3GsuLbUpvpsfZ'
@@ -45,7 +45,7 @@ def index2():
     df=df[(df.date > start_date) & (df.date <= end_date)]
 
 #Create the Bokeh Plot
-    p = figure(x_axis_type="datetime", title="Daily Stock Closing Prices for December 2017")
+    p = figure(x_axis_type="datetime", title="2017 Daily Closing Prices")
     p.grid.grid_line_alpha=0.3
     p.xaxis.axis_label = 'Date'
     p.yaxis.axis_label = 'Price'
@@ -53,7 +53,7 @@ def index2():
     p.legend.location = "top_left"
     #p.show()
     script, div = components(p)
-    return render_template("chart.html",bokeh_div=div, bokeh_script=script)
+    return render_template("chart.html", div=div, script=script)
 
 if __name__ == '__main__':
   app.run(port=33507,debug=True)
