@@ -2,6 +2,6 @@
 
 My project for the Data Incubator onboarding project.
 
-The app that displays stock prices can be found [here](http://pavlos-tdi-12day.herokuapp.com/)
+The app that displays stock prices can be found [here](http://pavlos-tdi-12day.herokuapp.com/index)
 
 Information on the assignment can be found [here](https://github.com/thedataincubator/flask-framework)
