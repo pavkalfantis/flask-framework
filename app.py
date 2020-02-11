@@ -12,15 +12,6 @@ from bokeh.util.string import encode_utf8
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-  return render_template('request.html')
-
-@app.route('/about')
-def about():
-  return render_template('about.html')
-
-
 @app.route('/index',methods=['GET','POST'])
 def index2():
     if request.method=='GET':
